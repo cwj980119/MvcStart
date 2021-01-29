@@ -1,0 +1,46 @@
+﻿@model MvcStart.Models.Board
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>글 삭제</h1>
+
+<h3>다시 되돌릴 수 없습니다. 삭제하시겠습니까?</h3>
+<div>
+    <h4>게시판</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            제목
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.title)
+        </dd>
+        <dt class = "col-sm-2">
+            작성자
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.author)
+        </dd>
+        <dt class = "col-sm-2">
+            작성시간
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.post_time)
+        </dd>
+        <!--<dt class = "col-sm-2">-->
+            @*@Html.DisplayNameFor(model => model.letter)*@
+
+        <!--</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.letter)
+        </dd>-->
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="삭제" class="btn btn-danger" /> |
+        <a asp-action="Index">목록으로 돌아가기</a>
+    </form>
+</div>

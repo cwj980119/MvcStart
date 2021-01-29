@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>카카오 맵 테스트 </h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Kakao 지도 시작하기</title>
+</head>
+<body>
+    <div id="map" style="width:1000px;height:400px;"></div>
+    <p>
+        <button class="btn btn-outline-primary" onclick="setCenter()">가운데로</button>
+        <button class="btn btn-outline-info" onclick="info()">정보</button>
+        <button class="btn btn-outline-success" onclick="getPos1()">좌표1 저장</button>
+        <button class="btn btn-outline-secondary" onclick="movToPos1()">좌표1 불러오기</button>
+        <button class="btn btn-outline-success" onclick="getPos2()">좌표2 저장</button>
+        <button class="btn btn-outline-primary" onclick="movToPos2()">좌표2 불러오기</button>
+        @*<button onclick="zoomIn()">+</button>
+        <button onclick="zoomOut()">-</button>*@
+    </p>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=daab4863346fc46134d56e6fcfb5dd16"></script>
+    <script>
+		var mapContainer = document.getElementById('map');
+		var mapOption = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3
+        };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        var pos1, pos2;
+
+        function setCenter() {
+            var moveLatLon = new kakao.maps.LatLng(37.05538, 127.05672);
+
+        // 지도 중심을 부드럽게 이동시킵니다
+        // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+            map.setCenter(moveLatLon);
+        }
+
+        var zoomControl = new kakao.maps.ZoomControl
+        map.addControl(zoomControl, kakao.maps.ControlPosition.Right);
+
+        var iwContent = '<div style="padding:5px;">이맥스 솔루션</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+            iwPosition = new kakao.maps.LatLng(37.05538, 127.05672), //인포윈도우 표시 위치입니다
+            iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+        function info(){
+            setCenter();
+            InfoWindow();
+        }
+
+        function InfoWindow() {
+
+            var infoWindow = new kakao.maps.InfoWindow({
+                map: map, // 인포윈도우가 표시될 지도
+                position: iwPosition,
+                content: iwContent,
+                removable: iwRemoveable
+            });
+        }
+
+        if (navigator.geolocation) {
+
+            // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+            navigator.geolocation.getCurrentPosition(function (position) {
+
+                var lat = position.coords.latitude, // 위도
+                    lon = position.coords.longitude; // 경도
+
+                var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+                    message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
+
+                // 마커와 인포윈도우를 표시합니다
+                displayMarker(locPosition, message);
+
+            });
+
+        } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+
+            var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
+                message = 'geolocation을 사용할수 없어요..'
+
+            displayMarker(locPosition, message);
+        }
+
+        // 지도에 마커와 인포윈도우를 표시하는 함수입니다
+        function displayMarker(locPosition, message) {
+
+            // 마커를 생성합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: locPosition
+            });
+
+            var iwContent = message, // 인포윈도우에 표시할 내용
+                iwRemoveable = true;
+
+            // 인포윈도우를 생성합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content: iwContent,
+                removable: iwRemoveable
+            });
+
+            // 인포윈도우를 마커위에 표시합니다 
+            infowindow.open(map, marker);
+
+            // 지도 중심좌표를 접속위치로 변경합니다
+            map.setCenter(locPosition);
+        }  
+
+        function getPos1() {
+            pos1 = map.getCenter();
+        }
+
+        function getPos2() {
+            pos2 = map.getCenter();
+        }
+
+        function movToPos1() {
+            map.setCenter(pos1);
+        }
+
+        function movToPos2() {
+            map.setCenter(pos2);
+        }
+
+        @*function zoomIn() {
+            // 현재 지도의 레벨을 얻어옵니다
+            var level = map.getLevel();
+
+            // 지도를 1레벨 내립니다 (지도가 확대됩니다)
+            map.setLevel(level - 1);
+
+        }
+
+        function zoomOut() {
+            // 현재 지도의 레벨을 얻어옵니다
+            var level = map.getLevel();
+
+            // 지도를 1레벨 올립니다 (지도가 축소됩니다)
+            map.setLevel(level + 1);
+
+           // 지도 레벨을 표시합니다
+            displayLevel();
+        }*@
+    </script>
+</body>
+</html>

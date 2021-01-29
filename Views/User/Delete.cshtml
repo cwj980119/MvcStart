@@ -1,0 +1,39 @@
+﻿@model MvcStart.Models.User
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>삭제</h1>
+
+<h3>삭제후 되돌릴 수 없습니다.</h3>
+<div>
+    <h4>회원정보</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            이름
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.name)
+        </dd>
+        <dt class = "col-sm-2">
+            성별
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.gender)
+        </dd>
+        <dt class = "col-sm-2">
+            생년월일
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.birthday)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="삭제" class="btn btn-danger" /> |
+        <a asp-action="Index">목록으로 돌아가기</a>
+    </form>
+</div>

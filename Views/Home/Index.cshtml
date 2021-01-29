@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<div class="text-center">
+    @if (SignInManager.IsSignedIn(User)) {
+    <h1 class="display-4">Welcome @UserManager.GetUserName(User)!</h1>
+    }
+    else {
+        <h1 class="display-4">Welcome Guest</h1>
+    }
+    <p>This is a Welcome Page.</p>
+</div>
+
+<body>
+    <span class="badge badge-primary">파랑</span>
+    <span class="badge badge-secondary">회색</span>
+    <span class="badge badge-success">초록</span>
+    <span class="badge badge-danger">빨강</span>
+    <span class="badge badge-warning">주황</span>
+    <span class="badge badge-info">연두?</span>
+    <span class="badge badge-light">하양</span>
+    <span class="badge badge-dark">검정</span>
+    <div class="jumbotron">
+        <h1>Hello, world!</h1>
+        <p>this is a test message</p>
+        <a href="http://www.naver.com">go naver</a> <br />
+        <a href="http://google.co.kr">go google</a>
+        <p><a class="btn btn-primary btn-lg" role="button" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy로 이동</a></p>
+    </div>
+</body>

@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>testFinal</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        //javascript API 생성 코드
+        /* <script type="text/javascript" src="js/OPweather.js"> */
+            $.ajax({
+                url: "https://api.openweathermap.org/data/2.5/weather?id=1838343&appid=790a268a05188f8d1bc7229d2068920a&units=metric",//lat, lon 지리적 좌표
+                dataType: "json",//밑의 데이터를 사용하는 글자
+                success: function (city) {//성공했을때 호출되는 함수
+                    console.log(city);
+                    console.log("좌표 : " + (city.coord.lon) + " , "+ (city.coord.lat));
+                    document.getElementById("name_temp").innerHTML = city.name + "," + city.sys.country + "의 현재 기온은 " + city.main.temp + "'C, <br>체감온도는 " + city.main.feels_like + "'C";
+                    console.log(city.weather[0].main);
+                    switch (city.weather[0].main) {
+                        case "Clouds":
+                            document.getElementById("weather").innerHTML = "현재 날씨 : 흐림"; break;
+                        case "Clear":
+                            document.getElementById("weather").innerHTML = "현재 날씨 : 맑음"; break;
+                        case "Atmosphere":
+                            document.getElementById("weather").innerHTML = "현재 날씨 : 안개?"; break;
+                        case "Snow":
+                            document.getElementById("weather").innerHTML = "현재 날씨 : 눈"; break;
+                        case "Rain":
+                            document.getElementById("weather").innerHTML = "현재 날씨 : 비"; break;
+                        case "Drizzle":
+                            document.getElementById("weather").innerHTML = "현재 날씨 : 이슬비"; break;
+                        case "Thunderstorm":
+                            document.getElementById("weather").innerHTML = "현재 날씨 : 천둥번개"; break;
+                        default:
+                            document.getElementById("weather").innerHTML = "현재 날씨 : 모름";
+                    }
+                    function toTextualDescription(degree) {
+                        if (degree > 337.5) return '북풍';
+                        if (degree > 292.5) return '북서풍';
+                        if (degree > 247.5) return '서풍';
+                        if (degree > 202.5) return '남서풍';
+                        if (degree > 157.5) return '남풍';
+                        if (degree > 122.5) return '남동풍';
+                        if (degree > 67.5) return '동풍';
+                        if (degree > 22.5) return '북동풍';
+                        return '북풍';
+                    }
+                    document.getElementById("wind").innerHTML = "현재 바람 : 초속 " + city.wind.speed + "m/s 방향 " + toTextualDescription(city.wind.deg);
+                    var iconcode = city.weather[0].icon;
+                    var iconUrl = "https://openweathermap.org/img/w/" + iconcode + ".png";
+                    $('#wicon').attr('src', iconUrl);
+                },
+                error: function (request,status,error) {
+                    alert("날씨 정보 받아오기 실패");
+                    console.log(error)
+                },
+                
+            });
+
+        function call() {
+            
+        }
+    </script>
+</head>
+<body>
+    <h2>날씨 테스트</h2>
+    <div class="col-md-4">
+        <p id="weather"></p>
+        <p id="name_temp"></p>
+        <p id="wind"></p>
+        <div id="icon"><img id="wicon" src="" alt="날씨 로딩" width="200" /></div>
+    </div>
+
+</body>
+</html>
+
+

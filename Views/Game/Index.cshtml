@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        td {
+            border: 1px solid black;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>틱택토</h2>
+    <script>
+        var 바디 = document.body,
+            결과 = document.createElement('h3');
+        테이블 = document.createElement('table'),
+            칸들 = [],
+            줄들 = [],
+            턴 = '❌';
+        var cnt = 0;
+
+        //✅②내가 몇번째칸인가
+        var 비동기콜백 = function (event) {
+            var 몇줄 = 줄들.indexOf(event.target.parentNode);
+            var 몇칸 = 칸들[몇줄].indexOf(event.target);
+
+            console.log(몇줄, 몇칸); //0번째 0칸 이런식으로 알수있음
+
+            //✅칸이 이미 채워져있는가
+            if (칸들[몇줄][몇칸].textContent !== '') {
+                console.log('빈 칸아닙니다');
+                return
+            } else {
+                cnt += 1;
+                console.log(cnt);
+
+                console.log('빈 칸입니다');
+                칸들[몇줄][몇칸].textContent = 턴;
+                var 다참 = false;
+
+                //✅세칸 다 채워졌나.
+                //가로줄 검사
+                if (칸들[몇줄][0].textContent === 턴 &&
+                    칸들[몇줄][1].textContent === 턴 &&
+                    칸들[몇줄][2].textContent === 턴) {
+                    다참 = true;
+                }
+                //세로줄 검사
+                else if (칸들[0][몇칸].textContent === 턴 &&
+                    칸들[1][몇칸].textContent === 턴 &&
+                    칸들[2][몇칸].textContent === 턴) {
+                    다참 = true;
+                }
+                //대각선 검사
+                else if (몇줄 - 몇칸 === 0) { //대각선 검사가 필요한 경우
+                    if (칸들[0][0].textContent === 턴 &&
+                        칸들[1][1].textContent === 턴 &&
+                        칸들[2][2].textContent === 턴) {
+                        다참 = true;
+                    }
+                } else if (Math.abs(몇줄 - 몇칸) === 2 || 몇줄 - 몇칸 === 0) {
+                    if (칸들[2][0].textContent === 턴 &&
+                        칸들[1][1].textContent === 턴 &&
+                        칸들[0][2].textContent === 턴) {
+                        다참 = true;
+                    }
+                }
+
+            }
+
+            //다 찼으면. (= (다참 == true))
+            if (다참) {
+                결과.textContent = `${턴} 님이 승리`;
+                //초기화
+                턴 = '❌';
+                칸들.forEach(function (줄) {
+                    줄.forEach(function (칸) {
+                        칸.textContent = '';
+                    });
+                });
+                다참 = false;
+                cnt = 0;
+            } else if (cnt >= 9) {
+                결과.textContent = '무승부입니다';
+            } else { //다 안찼으면
+                //턴을 넘겨주는 의미
+                if (턴 === '❌') {
+                    턴 = '🟢';
+
+                } else {
+                    턴 = '❌';
+                }
+            }
+
+        };
+        //①줄들, 칸들을 console이 인식하도록
+        for (var i = 1; i <= 3; i += 1) {
+            var 줄 = document.createElement('tr');
+            줄들.push(줄);
+            칸들.push([]);
+            for (var j = 1; j <= 3; j += 1) {
+                var 칸 = document.createElement('td');
+                칸.addEventListener('click', 비동기콜백);
+                줄.appendChild(칸);
+                칸들[i - 1].push(칸); //0부터 계산하니
+
+            }
+            테이블.appendChild(줄);
+        }
+
+        바디.append(테이블);
+        바디.append(결과);
+        console.log(줄들, 칸들);
+
+        /*
+        QnA : 승리확정시 마지막 수가 안없어지도록
+        */
+    </script>
+</body>
+
+</html>

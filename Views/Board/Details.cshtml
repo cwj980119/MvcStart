@@ -1,0 +1,90 @@
+﻿@model MvcStart.Models.Board
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1> @Html.DisplayFor(model => model.title)</h1>
+<!--<div>
+    <h4>작성자:@Html.DisplayFor(model => model.author)</h4>
+    <hr />
+    <dl class="row">-->
+@*<dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.title)
+    </dt>
+    <dd class = "col-sm-10">
+        @Html.DisplayFor(model => model.title)
+    </dd>
+    <dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.author)
+    </dt>
+    <dd class = "col-sm-10">
+        @Html.DisplayFor(model => model.author)
+    </dd>*@
+<!--<dt class = "col-sm-2">
+    조회수
+</dt>
+<dd class = "col-sm-10">
+    @Html.DisplayFor(model => model.click)
+</dd>
+<dt class = "col-sm-2">
+    좋아요
+</dt>
+<dd class = "col-sm-10">
+    @Html.DisplayFor(model => model.like_)
+</dd>
+<dt class = "col-sm-2">
+    작성시간
+</dt>
+<dd class = "col-sm-10">
+    @Html.DisplayFor(model => model.post_time)
+</dd>
+<dt class = "col-sm-2">
+    본문
+</dt>
+<dd class = "col-sm-10 col-lg-10 col-md-10">
+    <div class="overflow-auto">@Html.DisplayFor(model => model.letter)</div>-->
+@*@Html.DisplayFor(model => model.letter)*@
+<!--</dd>
+    </dl>
+</div>-->
+<div class="row">
+    <div class="col-xs-2 col-md-2"></div>
+    <div class="col-xs-8 col-md-8">
+        <h2 class="text-center">게시글 보기</h2><p>&nbsp;</p>
+        <div class="table table-responsive">
+            <table class="table">
+                <tr>
+                    <th class="success">글번호</th>
+                    <td>@Html.DisplayFor(model=>model.ID)</td>
+                    <th class="success">조회수</th>
+                    <td>@Html.DisplayFor(model => model.click)</td>
+                </tr>
+
+
+                <tr>
+                    <th class="success">작성자</th>
+                    <td>@Html.DisplayFor(model => model.author)</td>
+                    <th class="success">작성일</th>
+                    <td>@Html.DisplayFor(model => model.post_time)</td>
+                </tr>
+
+                <tr>
+                    <th class="success">제목</th>
+                    <td colspan="3">@Html.DisplayFor(model => model.title)</td>
+                </tr>
+
+                <tr>
+                    <th class="success">글 내용</th>
+                    <td colspan="3">@Html.DisplayFor(model => model.letter)</td>
+                </tr>
+            </table>
+        </div>
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model.ID">글 수정</a> |
+                    <a asp-action="Delete" asp-route-id="@Model.ID">글 삭제</a> |
+                    <a asp-action="Index">목록으로 돌아가기</a>
+                </div>
+
+    </div>
+</div>

@@ -1,0 +1,65 @@
+﻿@model MvcStart.Models.Board
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>글쓰기</h1>
+
+<h4>게시판</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row g-3">
+                <div class="col">
+            <div class="form-group">
+                <label>제목</label>
+                <input asp-for="title" class="form-control"/>
+                <span asp-validation-for="title" class="text-danger"></span>
+            </div>
+                    </div>
+                <div class="col">
+            <div class="form-group">
+                <label>작성자</label>
+                <input asp-for="author" class="form-control"/>
+                <span asp-validation-for="author" class="text-danger"></span>
+            </div>
+            </div>
+            </div>
+
+            @*<div class="form-group">
+                <label asp-for="click" class="control-label"></label>
+                <input asp-for="click" class="form-control" />
+                <span asp-validation-for="click" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="like_" class="control-label"></label>
+                <input asp-for="like_" class="form-control" />
+                <span asp-validation-for="like_" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="post_time" class="control-label"></label>
+                <input asp-for="post_time" class="form-control" />
+                <span asp-validation-for="post_time" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label>내용</label>
+                <textarea asp-for="letter" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="letter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="게시" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">목록으로 돌아가기</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

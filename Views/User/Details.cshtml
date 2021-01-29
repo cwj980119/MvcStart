@@ -1,0 +1,37 @@
+﻿@model MvcStart.Models.User
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>자세히</h1>
+
+<div>
+    <h4>회원정보</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            이름
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.name)
+        </dd>
+        <dt class = "col-sm-2">
+            성별
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.gender)
+        </dd>
+        <dt class = "col-sm-2">
+            생년월일
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.birthday)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-primary mx-1">수정</a> |
+    <a asp-action="Index">목록으로 돌아가기</a>
+</div>
+

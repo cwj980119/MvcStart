@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>testFinal</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        //javascript API 생성 코드
+        /* <script type="text/javascript" src="js/OPweather.js"> */
+        var yesterday = new Date();
+        var dd = yesterday.getDate();
+        var mm = yesterday.getMonth() + 1; //January is 0!
+        var yyyy = yesterday.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        yesterday = yyyy + "" + mm + "" + dd-1;
+        console.log(yesterday);
+            $.ajax({
+                url: "https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=ffa438462d4885f656e944f0479ce9d7&targetDt="+ yesterday,//key + date
+                dataType: "json",//밑의 데이터를 사용하는 글자
+                success: function (movies) {//성공했을때 호출되는 함수
+                    console.log(movies)
+                    var movieData = movies.boxOfficeResult.dailyBoxOfficeList;
+                    var movierank = "";
+                    for (var i = 0; i < 10; i++) {
+                        movierank = movierank + (i + 1) + "등 : " + movieData[i].movieNm;
+                        if (movieData[i].rankOldAndNew == "NEW") {
+                            movierank += "<span class=\"badge badge-success\">신작!</span>";
+                        }
+                            movierank += "- 개봉일 : " + movieData[i].openDt+"<br><br>"; 
+                    }
+                    document.getElementById("date").innerHTML = yesterday;
+                    document.getElementById("movie").innerHTML = movierank;
+                }
+            });
+
+        
+    </script>
+</head>
+<body>
+    <h2>영화 테스트</h2>
+    <div class="col-md-10">
+        <h4>어제 영화 순위 - <span id="date">날짜</span></h4>
+            
+        <p id="movie">로딩중</p>
+    </div>
+
+</body>
+</html>

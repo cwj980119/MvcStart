@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@{
+    ViewData["Title"] = "Picture";
+}
+
+<h1>사진첩 테스트</h1>
+
+@if (SignInManager.IsSignedIn(User)) {
+
+    @*<img src="~/data/투약함 도안_뽀로로.jpg" alt="뽀로로 사진" class="img-thumbnail">*@
+    <div class="card-group">
+        <div class="card">
+            <img src="~/data/뽀로로.png" class="card-img-top" alt="뽀로로 사진">
+            <div class="card-body">
+                <h5 class="card-title">펭권</h5>
+                <p class="card-text">펭귄 어쩌구 저쩌구</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="~/data/크롱.png" class="card-img-top" alt="크롱">
+            <div class="card-body">
+                <h5 class="card-title">공룡</h5>
+                <p class="card-text">공룡 어쩌구 저쩌구</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="~/data/통통이.png" class="card-img-top" alt="tongtong">
+            <div class="card-body">
+                <h5 class="card-title">용가리</h5>
+                <p class="card-text">용가리 어쩌구 저쩌구</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+    </div>
+<div class="card-group">
+    <div class="card">
+        <img src="~/data/루피.png" class="card-img-top" alt="루피">
+        <div class="card-body">
+            <h5 class="card-title">해달?</h5>
+            <p class="card-text">뭐  어쩌구 저쩌구</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+    <div class="card">
+        <img src="~/data/에디.png" class="card-img-top" alt="에디">
+        <div class="card-body">
+            <h5 class="card-title">여우</h5>
+            <p class="card-text">여우 어쩌구 저쩌구</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+    <div class="card">
+        <img src="~/data/포비.png" class="card-img-top" alt="곰">
+        <div class="card-body">
+            <h5 class="card-title">곰</h5>
+            <p class="card-text">곰 어쩌구 저쩌구</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+</div>
+
+}
+else {
+    <p>사진첩은 로그인 후 볼 수있습니다. </p>
+}
