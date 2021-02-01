@@ -24,8 +24,8 @@
         if (mm < 10) {
             mm = '0' + mm
         }
-
-        yesterday = yyyy + "" + mm + "" + dd-1;
+        yesterday = yyyy + "" + mm + "" + dd - 1;
+        today = yyyy + "" + mm + "" + dd;
         console.log(yesterday);
             $.ajax({
                 url: "https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=ffa438462d4885f656e944f0479ce9d7&targetDt="+ yesterday,//key + date
@@ -41,7 +41,7 @@
                         }
                             movierank += "- 개봉일 : " + movieData[i].openDt+"<br><br>"; 
                     }
-                    document.getElementById("date").innerHTML = yesterday;
+                    document.getElementById("date").innerHTML = today;
                     document.getElementById("movie").innerHTML = movierank;
                 }
             });
@@ -52,7 +52,7 @@
 <body>
     <h2>영화 테스트</h2>
     <div class="col-md-10">
-        <h4>어제 영화 순위 - <span id="date">날짜</span></h4>
+        <h4>영화 순위 - <span id="date">기준일</span></h4>
             
         <p id="movie">로딩중</p>
     </div>
